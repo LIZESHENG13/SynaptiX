@@ -1,0 +1,28 @@
+# configs/train_config.yaml（补全版）
+model:
+  input_dim: 6               # 输入特征维度（对应open,high,low,close,adj_close,volume）
+  shallow_hidden: 256         # 浅层记忆模块神经元数量
+  latent_dim: 32              # 降维后的特征维度
+  memory_dim: 64              # 深层记忆模块GRU隐藏层维度
+  output_dim: 1               # 输出维度（预测收盘价）
+  freeze_threshold: 0.25      # 神经元冻结阈值
+  reduce_method: "autoencoder" # 可选：autoencoder/pca/umap
+
+  # 替换不同的模型
+  "shallow_type": "snn"
+  "reduce_method": "pca"
+  "deep_type": "hybrid"
+  "hybrid_mode": "snn"
+
+training:
+  epochs: 200
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.01
+  patience: 15                # 早停等待轮数
+  seq_length: 14             # 时间序列长度（必须添加）
+  test_size: 0.3              # 数据集分割比例
+
+data:
+  raw_dir: "/media/disk/02drive/12zesheng/SNN-Net/data/raw"
+  processed_dir: "/media/disk/02drive/12zesheng/SNN-Net/data/processed"
